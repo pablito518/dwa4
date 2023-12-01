@@ -25,9 +25,13 @@
 .ifsp-logo-bg{
     position: fixed;
     top: 0;
+    width: 216px;
+    height: 250px;
 }
 
 .ifsp-logo{
+    width: 216px;
+    height: 250px;
     position: relative;
     right: 50%;
     margin-top: 15%;

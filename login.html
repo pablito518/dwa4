@@ -17,25 +17,12 @@
              height: 320px; 
          }
         </style>
-        <script src="js/cep.js"></script>
     </head>
     <body class="w3-green">
-    					<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-auth.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-firestore.js"></script>
-
-<script src="js/app.js"></script>
-
-
-<div class="ifsp-logo-bg">
-    <img src="img/Marca_IFSP_SimpVert_Neg.png" alt="Logo" />
-</div>
+    <div class="ifsp-logo-bg">
+        <img class="ifsp-logo-bg" src="img/Marca_IFSP_SimpVert_Neg.png" alt="Logo" />
+    </div>
 
   <div id="politicaPrivacidade" class="w3-modal">
     <div class="w3-modal-content w3-animate-top w3-card-4">
@@ -146,7 +133,14 @@
                                 <input class="w3-third" type="text" id="campousuario" autofocus required /><br />
                                 <label for="camposenha"><h5>Senha:</h5></label>
                                 <input class="w3-third" type="password" id="camposenha" required /><br /><br />
-                                <input class="w3-button w3-theme round" type="button" onclick="Login()"  name="enviar" value="Entrar" />
+                                <input class="w3-button w3-theme round" type="button" onclick="Login()"  name="enviar" value="Entrar" /><br>
+                                <a class="w3-button round" style="text-transform:none" onclick="loginGoogle()">
+                                    <div class="left">
+                                        <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
+                                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                            Logar com o Google
+                                        </div>
+                                </a>
                             </form>
                         </p>
                     </div>
@@ -158,13 +152,13 @@
                     <div class="w3-container">
                         <p>
                             <form method="post" id="novousuario" action="">
-                                <label for="campNome"><h5>Nome Completo:</h5></label>
-                                <input required class="w3-twothird" type="text" id="campoNome" placeholder="Ex: João da Silva" autofocus /><br />
-                                <label for="campoRG"><h5>E-mail:</h5></label>
-                                <input required class="w3-third" type="email" id="campoEmail" placeholder="seuemail@seuprovedor.com" /><br />
+                                <label for="campoNome"><h5>Nome Completo:</h5></label>
+                                <input required class="w3-twothird" disabled type="text" id="campoNome" placeholder="Ex: João da Silva" /><br />
+                                <label for="campoEmail"><h5>E-mail:</h5></label>
+                                <input required class="w3-twothird" disabled type="email" id="campoEmail" placeholder="seuemail@seuprovedor.com" /><br />
                                 <label for="campoCPF"><h5>CPF:</h5></label>
-                                <input required class="w3-third" type="number" id="campoCPF" placeholder="Ex: 000.000.000-00" onblur="validarCPF(this.value);" /><br />
-                                <label for="campoCPF"><h5>Telefone:</h5></label>
+                                <input required class="w3-third" type="text" id="campoCPF" placeholder="Ex: 000.000.000-00" onblur="validarCPF(this.value);" /><br />
+                                <label for="campoTelefone"><h5>Telefone:</h5></label>
                                 <input required class="w3-third" type="text" id="campoTelefone" placeholder="Ex: (99)99999-9999" minlenght="10" onblur="validaTelefone()" /><br />
                                 <label for="campoSenha1"><h5>Senha:</h5></label>
                                 <input required class="w3-third" type="password" minlength='6' id="campoSenha1" /><br>
@@ -177,12 +171,37 @@
                                 <input required type="checkbox" id="termo2" name="item2" value="termo2" >
                                 <label for="termo2">Li e aceito a <a onclick="document.getElementById('politicaPrivacidade').style.display='block'" href="#politicadeprivacidade.html" >Política de privacidade</a></label><br><br>
                                 <input class="w3-button w3-theme round" onclick="validate()" id="enviar" type="button" name="enviar" value="Registrar" />
+                                <div class="col s12 m6 offset-m3 center-align">
+                              <!--  <input class="w3-button w3-theme round" onclick="autenticarComGoogle()" id="enviar" type="button" name="enviar" value="Google" />-->
+                                    <a class="w3-button round" style="text-transform:none" onclick="autenticarComGoogle()">
+                                        <div class="left">
+                                            <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
+                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                                Cadastrar com o Google
+                                        </div>
+                                    </a>
+                                </div>
                             </form>
                         </p>
                     </div>
                 </div>
            </div>
         </div>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+        <script>
+        const firebaseApp = firebase.initializeApp({ 
+            apiKey: "AIzaSyBmn_paLTm_ArCK9-aMbvCKg4sIrRJv2zU",
+            authDomain: "bancoif.firebaseapp.com",
+            projectId: "bancoif",
+            storageBucket: "bancoif.appspot.com",
+            messagingSenderId: "857529308961",
+            appId: "1:857529308961:web:05d806e8cd74a7a60a9060" });
+        const db = firebaseApp.firestore();
+        const auth = firebaseApp.auth();
+        </script>
+        <script src="js/app.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="./js/cpf.js"></script>
         <script src="./js/telefone.js"></script>

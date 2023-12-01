@@ -6,8 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banco IF</title>
     <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../css/w3.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" />
 </head>
-<body>
+<body class="w3-green">
+    <div class="ifsp-logo-bg">
+        <img class="ifsp-logo-bg" src="../img/Marca_IFSP_SimpVert_Neg.png" alt="Logo" />
+    </div>
     <header id="titulo">
         <h1>Banco do Instituto Federal de São Paulo</h1>
     </header>
@@ -25,7 +30,24 @@
         <button class="Opcao" id="tirar">Sacar dinheiro</button>
 
         <button class="Opcao" id="zero">Zerar conta</button>
+        <button onclick="fazerLogout()">Logout</button>
     </main>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-auth-compat.js"></script>
+    <script>
+    const firebaseApp = firebase.initializeApp({ 
+        apiKey: "AIzaSyBmn_paLTm_ArCK9-aMbvCKg4sIrRJv2zU",
+        authDomain: "bancoif.firebaseapp.com",
+        projectId: "bancoif",
+        storageBucket: "bancoif.appspot.com",
+        messagingSenderId: "857529308961",
+        appId: "1:857529308961:web:05d806e8cd74a7a60a9060" });
+    const db = firebaseApp.firestore();
+    const auth = firebaseApp.auth();
+    </script>
+    <script src="../js/logout.js"></script>
     <script src="script.js"></script>
     <script scr="../js/auth-guard.js"></script>
 

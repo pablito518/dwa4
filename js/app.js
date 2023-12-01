@@ -1,22 +1,103 @@
+
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
 //Inicializando as configurações do Firebase
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBmn_paLTm_ArCK9-aMbvCKg4sIrRJv2zU",
-    authDomain: "bancoif.firebaseapp.com",
-    projectId: "bancoif",
-    storageBucket: "bancoif.appspot.com",
-    messagingSenderId: "857529308961",
-    appId: "1:857529308961:web:05d806e8cd74a7a60a9060"
-  };
 
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
 
+  var provider = new firebase.auth.GoogleAuthProvider();
+
+  provider.addScope('https://www.googleapis.com/auth/userinfo.email');
+  provider.addScope('profile');
+  provider.addScope('email');
+  
+ function autenticarComGoogle() {
+    // Iniciar processo de autenticação com o Google
+    auth.signInWithPopup(provider).then(function(result) {
+        // Verificar se o domínio do e-mail é permitido
+        var user = result.user;
+        var dominioPermitido = 'aluno.ifsp.edu.br';
+
+        if (user.email.endsWith('@' + dominioPermitido)) {
+            // Usuário autenticado com sucesso, faça o que for necessário aqui
+            console.log('Usuário autenticado com sucesso: ' + user.email + user.displayName);
+            
+            document.getElementById('campoNome').value = user.displayName;
+            document.getElementById('campoEmail').value = user.email;
+        } else {
+            // Desconectar o usuário e exibir uma mensagem de erro
+            user.delete().then(function() {
+                swal("Ocorreu um erro", "Apenas contas " + dominioPermitido + " são permitidas.", "error");
+                console.error('Apenas contas "' + dominioPermitido + '" são permitidas.');
+            }).catch(function(error) {
+                console.error('Erro ao desconectar o usuário: ' + error.message);
+            });
+        }
+    }).catch(function(error) {
+        // Trata erros durante o processo de autenticação
+        console.error('Erro ao autenticar com o Google: ' + error.message);
+    });
+}/*
+    function cadastrar2(){
+        firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          /**  @type {firebase.auth.OAuthCredential} */
+     /*     var credential = result.credential;
+      
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // IdP data available in result.additionalUserInfo.profile.
+            // ...
+            console.log(user);
+        }).catch((error) => {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+    }*/
+async function loginGoogle(){
+    try{
+        await autenticarComGoogle();
+        firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/v8/firebase.User
+        console.log(auth.currentUser);
+        console.log("cu")
+          var uid = user.uid;
+          // ...
+          console.log(uid)
+    
+          window.location.href = "../bancoIF/home.html";
+          } else {
+        }
+      });
+    }
+    catch(exception){
+        console.log(exception)
+    }
+
+    
+    
+}
+
+
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(function() {
+  // Existing and future Auth states are now persisted in the current
+  // session only. Closing the window would clear any existing state even if
+  // a user forgets to sign out.
+});
 
   function Login(){
     let userEmail = document.getElementById('campousuario').value;
@@ -40,17 +121,9 @@ const firebaseConfig = {
         }   
     });
 }
-
-  //Constante com o nome da tabela
-  const USUARIOS = "Usuários";
-
-
-  let db = firebase.firestore();
-  let auth = firebase.auth()
-
-  
-  var arrObject = [];
-  var helper = [];
+  /** 
+ * TODO: Modularizar (validation.js)
+*/
 
   //verificando se as duas checkbox estão marcadas
   function checkboxValidate(){    
@@ -156,7 +229,6 @@ function limpar(){
 }
 
 
-
 function alertaUsuario(){
     swal("Usuário ou senha inválida", "Insira um usuário e senha válida e tente novamente", "error");
 }
@@ -171,6 +243,9 @@ function alertaUsuario4(){
     swal("Muitas tentativas", "Aguarde alguns minutos e tente novamente", "error");
 }
 
+/** 
+ * TODO: Modularizar (passwordRecovery.js)
+*/
 function recuperarSenha(){
 var auth = firebase.auth();
 var emailAdress = document.getElementById('campousuarioRecuperar').value;
