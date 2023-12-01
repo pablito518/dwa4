@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco IF</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header id="titulo">
+        <h1>Banco do Instituto Federal de São Paulo</h1>
+    </header>
+    <section id="saldoAtual">
+        Sua conta possui: R$<span id="valor">0</span>,00
+    </section>
+    <main>
+        <button class="Opcao" id="adc">Adicionar dinheiro</button>
+
+        <div class="Opcao" id="paraAdicionar">
+            <span>Quanto? <input type="number" id=""></span>
+            <input type="submit" id="enviar" value="Adicionar Valor">
+        </div>
+
+        <button class="Opcao" id="tirar">Sacar dinheiro</button>
+
+        <button class="Opcao" id="zero">Zerar conta</button>
+    </main>
+    <script src="script.js"></script>
+    <script scr="../js/auth-guard.js"></script>
+
+</body>
+</html>

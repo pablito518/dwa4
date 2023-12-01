@@ -1,0 +1,35 @@
+.flex{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: center;
+    width: calc(100% - 10em);
+}
+
+.round{
+    border-radius: 10px;
+}
+
+.rect{
+    padding:16px;
+    width: 300px;
+}
+
+.w3-cell :hover{
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+
+}
+
+.ifsp-logo-bg{
+    position: fixed;
+    top: 0;
+}
+
+.ifsp-logo{
+    position: relative;
+    right: 50%;
+    margin-top: 15%;
+    height: 45%;
+}

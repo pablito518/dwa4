@@ -1,0 +1,39 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+#saldoAtual, #titulo{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.Opcao {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+#paraAdicionar{
+    display: none;
+}
+
+
+#adc:hover{
+    background-color: rgba(0, 128, 0, 0.534);
+
+}
+#tirar:hover{
+    background-color: rgba(255, 0, 0, 0.452);
+
+}
+#zero:hover{
+    background-color: rgba(5, 91, 112, 0.445);
+}
