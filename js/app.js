@@ -65,32 +65,39 @@
           // ...
         });
     }*/
-async function loginGoogle(){
-    try{
-        await autenticarComGoogle();
-        firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/v8/firebase.User
-        console.log(auth.currentUser);
-        console.log("cu")
-          var uid = user.uid;
-          // ...
-          console.log(uid)
+    async function loginGoogle() {
+        try {
+            await autenticarComGoogle();
+            firebase.auth().onAuthStateChanged((user) => {
+                if (user) {
+                    // Verificar se o e-mail do usuário pertence ao domínio permitido
+                    var dominioPermitido = 'aluno.ifsp.edu.br';
     
-          window.location.href = "../bancoIF/home.html";
-          } else {
+                    if (user.email.endsWith('@' + dominioPermitido)) {
+                        console.log(auth.currentUser);
+                        var uid = user.uid;
+                        console.log(uid)
+    
+                        // Usuário autenticado com sucesso e pertence ao domínio permitido
+                        window.location.href = "../bancoIF/home.html";
+                    } else {
+                        // Desconectar o usuário e exibir uma mensagem de erro
+                        user.delete().then(function() {
+                            swal("Ocorreu um erro", "Apenas contas " + dominioPermitido + " são permitidas.", "error");
+                            console.error('Apenas contas "' + dominioPermitido + '" são permitidas.');
+                        }).catch(function(error) {
+                            console.error('Erro ao desconectar o usuário: ' + error.message);
+                        });
+                    }
+                } else {
+                    // Usuário não autenticado
+                }
+            });
+        } catch (exception) {
+            console.log(exception);
         }
-      });
     }
-    catch(exception){
-        console.log(exception)
-    }
-
     
-    
-}
-
 
   firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
     .then(function() {
