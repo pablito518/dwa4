@@ -1,5 +1,5 @@
 import formValidation from './modules/formValidation.js';
-import firebaseAuth from './modules/firebase-auth.js';
+import firebaseAuth from './modules/firebaseAuth.js';
 
 // Use os métodos e classes conforme necessário
 document.getElementById('enviar').addEventListener('click', function() {
@@ -10,16 +10,15 @@ document.getElementById('enviar').addEventListener('click', function() {
     }
     // Exemplo: chamar uma função
 });
+const firebaseAuth = new FirebaseAuth();
 
-document.getElementById('cadastrar').addEventListener('click', function(){
-    firebaseAuth.autenticarComGoogle();
-})
+document.getElementById('cadastrar').addEventListener('click', function () {
+  firebaseAuth.autenticarComGoogle();
+});
 
-document.getElementById('entrar').addEventListener('click', function(){
-    firebaseAuth.signInWithEmailAndPassword();
-})
-
-
+document.getElementById('entrar').addEventListener('click', function () {
+  firebaseAuth.signInWithEmailAndPassword();
+});
 
 
 function CriarUsuario(){
