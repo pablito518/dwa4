@@ -22,12 +22,16 @@
     <main>
         <button class="Opcao" id="adc">Adicionar dinheiro</button>
 
-        <div class="Opcao" id="paraAdicionar">
-            <span>Quanto? <input type="number" id=""></span>
-            <input type="submit" id="enviar" value="Adicionar Valor">
+        <div class="Opcao" id="">
+            <span>Quanto? <input type="number" id="valorAdicionar"></span>
+            <input type="submit" id="enviar" value="Adicionar Valor"><br><br>
+
+            <button class="Opcao" id="tirar">Sacar dinheiro</button>
+        <span>Quanto? <input type="number" id="valorRemover"></span>
+        <input type="submit" id="enviar2" value="Sacar Valor">
         </div>
-        <button class="Opcao" id="tirar">Sacar dinheiro</button>
         <button onclick="fazerLogout()">Logout</button>
+
     </main>
     
     <script src="https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"></script>

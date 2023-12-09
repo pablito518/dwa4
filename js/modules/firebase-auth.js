@@ -15,7 +15,7 @@ const firebaseAuth = {
 
         if (user.email.endsWith('@' + dominioPermitido)) {
             // Usuário autenticado com sucesso, faça o que for necessário aqui
-            
+            user.delete();
             document.getElementById('infoAdicionais').style.display = 'block';
             document.getElementById('cadastrarGoogle').style.display = 'none';
             document.getElementById('campoNome').value = user.displayName;
@@ -69,9 +69,6 @@ const firebaseAuth = {
     setPersistence: function() {
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
         .then(function() {
-      // Existing and future Auth states are now persisted in the current
-      // session only. Closing the window would clear any existing state even if
-      // a user forgets to sign out.
     });
     },
     signInWithEmailAndPassword: function() {
@@ -80,7 +77,7 @@ const firebaseAuth = {
     
         firebase.auth().signInWithEmailAndPassword(userEmail, userPassword
         ).then(response => { 
-            window.location.href = "../../poupaIF/bancoIF/home.html";
+            window.location.href = "../../bancoIF/home.html";
         }).catch(error => 
             {  if(error.code == "auth/wrong-password"){
                 this.alertaUsuario();
