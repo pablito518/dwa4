@@ -1,5 +1,5 @@
 import formValidation from './modules/formValidation.js';
-import firebaseAuth from './modules/firebaseAuth.js';
+import firebaseAuth from './modules/firebase-auth.js';
 
 // Use os métodos e classes conforme necessário
 document.getElementById('enviar').addEventListener('click', function() {
