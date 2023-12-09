@@ -74,9 +74,40 @@ const firebaseAuth = {
       // a user forgets to sign out.
     });
     },
-    signInWithEmailAndPassword: function(email, password) {
-      // Implementação da função
-    }
+    signInWithEmailAndPassword: function() {
+        const userEmail = document.getElementById('campousuario').value;
+        const userPassword = document.getElementById('camposenha').value;
+    
+        firebase.auth().signInWithEmailAndPassword(userEmail, userPassword
+        ).then(response => { 
+            window.location.href = "../../poupaIF/bancoIF/home.html";
+        }).catch(error => 
+            {  if(error.code == "auth/wrong-password"){
+                this.alertaUsuario();
+            }
+            else if(error.code == "auth/invalid-email"){
+                this.alertaUsuario2();
+            }
+            else if(error.code == "auth/user-not-found"){
+                this.alertaUsuario3();
+            }
+            else if(error.code == "auth/too-many-requests"){
+                this.alertaUsuario4();
+            }   
+        });
+    },
+        alertaUsuario: function(){
+            swal("Usuário ou senha inválida", "Insira um usuário e senha válida e tente novamente", "error");
+        },
+        alertaUsuario2: function(){
+            swal("Endereço de email inválido", "Insira um endereço de email válido e tente novamente", "error");
+        },
+        alertaUsuario3: function(){
+            swal("Usuário não cadastrado", "Gostaria de se registrar?", "error");
+        },
+        alertaUsuario4: function(){
+            swal("Muitas tentativas", "Aguarde alguns minutos e tente novamente", "error");
+        }
   };
   
   export default firebaseAuth;
