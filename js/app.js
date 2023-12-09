@@ -10,7 +10,6 @@ document.getElementById('enviar').addEventListener('click', function() {
     }
     // Exemplo: chamar uma função
 });
-const firebaseAuth = new FirebaseAuth();
 
 document.getElementById('cadastrar').addEventListener('click', function () {
   firebaseAuth.autenticarComGoogle();
@@ -28,8 +27,7 @@ function CriarUsuario(){
 
 auth.createUserWithEmailAndPassword(Email,password).then(user=>{
     console.log(user);
-    limpar();
-    window.location.href = "welcome.html";
+    window.location.href = "../welcome.html";
 }).catch(error =>{
     console.log(error);
     if(error.code == "auth/email-already-in-use"){
