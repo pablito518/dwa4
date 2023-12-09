@@ -1,0 +1,38 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authentication Example</title>
+</head>
+<body>
+  <h1>Welcome</h1>
+
+  <!-- Adicionando formulário de registro -->
+  <h2>Register</h2>
+  <form id="registerForm">
+    <label>Email: <input type="email" name="email" required></label>
+    <label>Password: <input type="password" name="password" required></label>
+    <button type="submit">Register</button>
+  </form>
+
+  <!-- Adicionando formulário de login -->
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Email: <input type="email" name="email" required></label>
+    <label>Password: <input type="password" name="password" required></label>
+    <button type="submit">Login</button>
+  </form>
+
+  <button onclick="loginWithGoogle()">Login with Google</button>
+  <button onclick="logout()">Logout</button>
+  <button onclick="fetchProfile()">Fetch Profile</button>
+
+  <div id="profile"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

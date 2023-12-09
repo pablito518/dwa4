@@ -127,7 +127,6 @@
             <div class="tab-panels">
                 <div class="tab-panel w3-twothirds w3-largexx">
                     <div class="w3-container">
-                        <p>
                             <form method="post" id="log_in" action="">
                                 <label for="campousuario"><h5>Email/Usuário:</h5></label>
                                 <input class="w3-third" type="text" id="campousuario" autofocus required /><br />
@@ -142,7 +141,6 @@
                                         </div>
                                 </a>
                             </form>
-                        </p>
                     </div>
                     <footer class="w3-container w3-text-blue w3-padding-16 w3-center">
                         <small><a href="recuperar.html">Esqueci minha senha</a></small>
@@ -150,39 +148,48 @@
                 </div>
                 <div class="tab-panel w3-twothirds">
                     <div class="w3-container">
-                        <p>
-                            <form method="post" id="novousuario" action="">
-                                <label for="campoNome"><h5>Nome Completo:</h5></label>
-                                <input required class="w3-twothird" disabled type="text" id="campoNome" placeholder="Ex: João da Silva" /><br />
-                                <label for="campoEmail"><h5>E-mail:</h5></label>
-                                <input required class="w3-twothird" disabled type="email" id="campoEmail" placeholder="seuemail@seuprovedor.com" /><br />
-                                <label for="campoCPF"><h5>CPF:</h5></label>
-                                <input required class="w3-third" type="text" id="campoCPF" placeholder="Ex: 000.000.000-00" onblur="validarCPF(this.value);" /><br />
-                                <label for="campoTelefone"><h5>Telefone:</h5></label>
-                                <input required class="w3-third" type="text" id="campoTelefone" placeholder="Ex: (99)99999-9999" minlenght="10" onblur="validaTelefone()" /><br />
-                                <label for="campoSenha1"><h5>Senha:</h5></label>
-                                <input required class="w3-third" type="password" minlength='6' id="campoSenha1" /><br>
-                                <label for="campoSenha2"><h5>Digite a senha novamente:</h5></label>
-                                <input required class="w3-third" type="password" minlength='6' id="campoSenha2" /><br /><br />
-                            </form>
+                        <div id="cadastrarGoogle" style="height: 250px; display:flex; align-items: center; justify-content: center;">
                             <form id="form2">
-                                <input required type="checkbox" id="termo1" name="item1" value="termo1" >
-                                <label for="termo1">Li e aceito os <a onclick="document.getElementById('termosUso').style.display='block'" href="#termosdeuso.html"> Termos de Uso</a></label><br>
-                                <input required type="checkbox" id="termo2" name="item2" value="termo2" >
-                                <label for="termo2">Li e aceito a <a onclick="document.getElementById('politicaPrivacidade').style.display='block'" href="#politicadeprivacidade.html" >Política de privacidade</a></label><br><br>
-                                <input class="w3-button w3-theme round" onclick="validate()" id="enviar" type="button" name="enviar" value="Registrar" />
-                                <div class="col s12 m6 offset-m3 center-align">
-                              <!--  <input class="w3-button w3-theme round" onclick="autenticarComGoogle()" id="enviar" type="button" name="enviar" value="Google" />-->
-                                    <a class="w3-button round" style="text-transform:none" onclick="autenticarComGoogle()">
+                            <!--  <input class="w3-button w3-theme round" onclick="autenticarComGoogle()" id="enviar" type="button" name="enviar" value="Google" />-->
+                                    <a class="w3-button round" id="cadastrar" style="text-transform:none">
                                         <div class="left">
-                                            <img width="20px" style="margin-top:7px; margin-right:8px" alt="Google sign-in" 
-                                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                                            <img width="30px" style=" margin-right:8px; margin-right:8px" alt="Google sign-in" 
+                                                src="https://logopng.com.br/logos/google-37.png" />
                                                 Cadastrar com o Google
                                         </div>
                                     </a>
                                 </div>
                             </form>
-                        </p>
+                    </div>
+                     <!-- Seção de informações adicionais (inicialmente oculta) -->
+                                <div id="infoAdicionais" class="w3-container" style="display: none;">
+                                    <form method="post" id="novousuario" action="">
+                                    <label for="campoNome"><h5>Nome Completo:</h5></label>
+                                    <input required class="w3-twothird" disabled type="text" id="campoNome" placeholder="Ex: João da Silva" /><br />
+                                
+                                    <label for="campoEmail"><h5>E-mail:</h5></label>
+                                    <input required class="w3-twothird" disabled type="email" id="campoEmail" placeholder="seuemail@seuprovedor.com" /><br />
+                                
+                                    <!-- Campos adicionais exibidos após a autenticação -->
+                                    <label for="campoCPF"><h5>CPF:</h5></label>
+                                    <input required class="w3-third" type="text" id="campoCPF" placeholder="Ex: 000.000.000-00" onblur="validarCPF(this.value);" /><br />
+                                
+                                    <label for="campoTelefone"><h5>Telefone:</h5></label>
+                                    <input required class="w3-third" type="text" id="campoTelefone" placeholder="Ex: (99)99999-9999" minlength="10" onblur="validaTelefone()" /><br/>
+                                
+
+                                    <label for="campoSenha1"><h5>Senha:</h5></label>
+                                    <input required class="w3-third" type="password" minlength='6' id="campoSenha1" /><br>
+                                    <label for="campoSenha2"><h5>Digite a senha novamente:</h5></label>
+                                    <input required class="w3-third" type="password" minlength='6' id="campoSenha2" /><br /><br />
+
+                                    <input required type="checkbox" id="termo1" name="item1" value="termo1" >
+                                    <label for="termo1">Li e aceito os <a onclick="document.getElementById('termosUso').style.display='block'" href="#termosdeuso.html"> Termos de Uso</a>
+                                    e a <a onclick="document.getElementById('politicaPrivacidade').style.display='block'" href="#politicadeprivacidade.html" >Política de privacidade</a></label><br>
+                                    <input class="w3-button w3-theme round" id="enviar" type="button" name="enviar" value="Confirmar Cadastro" />
+                                    <div class="col s12 m6 offset-m3 center-align"><br>
+                                    </form>
+                                </div>
                     </div>
                 </div>
            </div>
@@ -201,9 +208,11 @@
         const db = firebaseApp.firestore();
         const auth = firebaseApp.auth();
         </script>
-        <script src="js/app.js"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="./js/cpf.js"></script>
         <script src="./js/telefone.js"></script>
+        <script type="module" src="./js/app.js"></script>
+        <script type="module" src="./js/modules/firebase-auth.js"></script>
+        <script type="module" src="./js/modules/formValidation.js"></script>
     </body>
 </html>

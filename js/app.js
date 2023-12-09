@@ -2,109 +2,33 @@
 // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+// No seu arquivo principal
+
+import formValidation from './modules/formValidation.js'
+import firebaseAuth from './modules/firebase-auth.js';
+
+// Use os métodos e classes conforme necessário
+document.getElementById('enviar').addEventListener('click', function() {
+    // Coloque aqui o código que deseja executar quando o elemento for clicado
+    const result = formValidation.validate();
+    if(result){
+        getData();
+    }
+    // Exemplo: chamar uma função
+});
+
+document.getElementById('cadastrar').addEventListener('click', function(){
+    firebaseAuth.autenticarComGoogle();
+})
+
+// Exemplo de criação de um objeto User a partir do formulário
+//const user = User.fromForm(document.getElementById('novousuario'));
+
+// Exemplo de cadastro de usuário
+//Cadastro.cadastrarUsuario(user);
+
 //Inicializando as configurações do Firebase
 
-
-
-
-  var provider = new firebase.auth.GoogleAuthProvider();
-
-  provider.addScope('https://www.googleapis.com/auth/userinfo.email');
-  provider.addScope('profile');
-  provider.addScope('email');
-  
- function autenticarComGoogle() {
-    // Iniciar processo de autenticação com o Google
-    auth.signInWithPopup(provider).then(function(result) {
-        // Verificar se o domínio do e-mail é permitido
-        var user = result.user;
-        var dominioPermitido = 'aluno.ifsp.edu.br';
-
-        if (user.email.endsWith('@' + dominioPermitido)) {
-            // Usuário autenticado com sucesso, faça o que for necessário aqui
-            console.log('Usuário autenticado com sucesso: ' + user.email + user.displayName);
-            
-            document.getElementById('campoNome').value = user.displayName;
-            document.getElementById('campoEmail').value = user.email;
-        } else {
-            // Desconectar o usuário e exibir uma mensagem de erro
-            user.delete().then(function() {
-                swal("Ocorreu um erro", "Apenas contas " + dominioPermitido + " são permitidas.", "error");
-                console.error('Apenas contas "' + dominioPermitido + '" são permitidas.');
-            }).catch(function(error) {
-                console.error('Erro ao desconectar o usuário: ' + error.message);
-            });
-        }
-    }).catch(function(error) {
-        // Trata erros durante o processo de autenticação
-        console.error('Erro ao autenticar com o Google: ' + error.message);
-    });
-}/*
-    function cadastrar2(){
-        firebase.auth()
-        .signInWithPopup(provider)
-        .then((result) => {
-          /**  @type {firebase.auth.OAuthCredential} */
-     /*     var credential = result.credential;
-      
-          // This gives you a Google Access Token. You can use it to access the Google API.
-          var token = credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          // IdP data available in result.additionalUserInfo.profile.
-            // ...
-            console.log(user);
-        }).catch((error) => {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          var credential = error.credential;
-          // ...
-        });
-    }*/
-    async function loginGoogle() {
-        try {
-            await autenticarComGoogle();
-            firebase.auth().onAuthStateChanged((user) => {
-                if (user) {
-                    // Verificar se o e-mail do usuário pertence ao domínio permitido
-                    var dominioPermitido = 'aluno.ifsp.edu.br';
-    
-                    if (user.email.endsWith('@' + dominioPermitido)) {
-                        console.log(auth.currentUser);
-                        var uid = user.uid;
-                        console.log(uid)
-    
-                        // Usuário autenticado com sucesso e pertence ao domínio permitido
-                        window.location.href = "../bancoIF/home.html";
-                    } else {
-                        // Desconectar o usuário e exibir uma mensagem de erro
-                        user.delete().then(function() {
-                            swal("Ocorreu um erro", "Apenas contas " + dominioPermitido + " são permitidas.", "error");
-                            console.error('Apenas contas "' + dominioPermitido + '" são permitidas.');
-                        }).catch(function(error) {
-                            console.error('Erro ao desconectar o usuário: ' + error.message);
-                        });
-                    }
-                } else {
-                    // Usuário não autenticado
-                }
-            });
-        } catch (exception) {
-            console.log(exception);
-        }
-    }
-    
-
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-    .then(function() {
-  // Existing and future Auth states are now persisted in the current
-  // session only. Closing the window would clear any existing state even if
-  // a user forgets to sign out.
-});
 
   function Login(){
     let userEmail = document.getElementById('campousuario').value;
@@ -128,66 +52,17 @@
         }   
     });
 }
-  /** 
- * TODO: Modularizar (validation.js)
-*/
-
-  //verificando se as duas checkbox estão marcadas
-  function checkboxValidate(){    
-    Termo1 = document.getElementById('termo1');  
-    Termo1.addEventListener("invalid",function(){
-        this.setCustomValidity('Você precisa ler e aceitar os termos para prosseguir');
-    });
-   
-    Termo1.reportValidity();
-    Termo1.addEventListener('change',function(){
-        this.setCustomValidity('');
-    });
-    if(Termo1.checkValidity()){
-        checkboxValidate2();
-    }
-    
-  }
-
-function checkboxValidate2(){
-    Termo2 = document.getElementById('termo2');  
-    Termo2.addEventListener("invalid",function(){
-        this.setCustomValidity('Você precisa ler e aceitar os termos para prosseguir');
-    });
-    Termo2.reportValidity();
-    Termo2.addEventListener('change',function(){
-        this.setCustomValidity('');
-    });
-    if(Termo2.checkValidity()){
-        getData();
-    }
-   
-}
-
  //verificando se todos os elementos do form estão preenchidos
-function validate(){
- 
-    form = document.getElementById('novousuario');
-    reportVal = form.reportValidity();
-    if(reportVal == true){
-       checkboxValidate();
-    }
-    else{
-        return;
-    }
-
-}
 
 //obtendo dados
 function getData(){
-    nome_completo = document.getElementById('campoNome').value;
-    _Email = document.getElementById('campoEmail').value;
-    _CPF = document.getElementById('campoCPF').value;
-    _Telefone = document.getElementById('campoTelefone').value;
-    _password = document.getElementById('campoSenha1').value;
-    _Confirmpassword = document.getElementById('campoSenha2').value;
-    
-    Cadastrar(nome_completo, _Email , _Telefone, _CPF);    
+   let _nome_completo = document.getElementById('campoNome').value;
+   let _Email = document.getElementById('campoEmail').value;
+   let _CPF = document.getElementById('campoCPF').value;
+   let _Telefone = document.getElementById('campoTelefone').value;
+   // _password = document.getElementById('campoSenha1').value;
+   // _Confirmpassword = document.getElementById('campoSenha2').value;
+    Cadastrar(_nome_completo, _Email , _Telefone, _CPF);    
 }
 
 
@@ -276,4 +151,3 @@ function alertaRecuperarSenha(){
 function redirecionar() {
     window.location.href = "login.html";
 }
-
